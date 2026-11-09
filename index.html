@@ -1,58 +1,406 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emmet 2.0</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #05070b;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    overflow: hidden;
+}
+
+h1 {
+    color: #00eeee;
+    letter-spacing: 6px;
+    text-shadow: 0 0 18px #00eeee;
+}
+
+#name {
+    color: #00eeee;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+#robot {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    border-radius: 50%;
+    background: #000;
+    border: 3px solid #00dada;
+    box-shadow: 0 0 30px #00dada;
+    transition: border-color .4s, box-shadow .4s;
+}
+
+/* OJOS */
+
+.eye {
+    width: 65px;
+    height: 78px;
+    position: relative;
+    background: #00e5e5;
+    border-radius: 8px 8px 28px 28px;
+    box-shadow: 0 0 18px #00eeee;
+    animation: blink 4.5s infinite;
+    transform-origin: center;
+}
+
+.eye::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 15px white;
+}
+
+.eye:nth-of-type(2) {
+    animation-delay: .15s;
+}
+
+@keyframes blink {
+    0%, 44%, 48%, 100% {
+        transform: scaleY(1);
+    }
+    46% {
+        transform: scaleY(.06);
+    }
+}
+
+/* ELEMENTOS DECORATIVOS */
+
+.hat, .star, .decor, .energy-ring {
+    display: none;
+    position: absolute;
+}
+
+.hat {
+    width: 155px;
+    height: 45px;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #e5a52c;
+    border-bottom: 8px solid #a92727;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+.hat::before {
+    content: "";
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    left: 45px;
+    top: -42px;
+    background: #b52c2c;
+    border: 4px solid #e5a52c;
+    border-radius: 50% 50% 10% 10%;
+}
+
+.star {
+    color: #00eaff;
+    font-size: 27px;
+    text-shadow: 0 0 15px #00eaff;
+}
+
+.star.one { top: 65px; left: 25px; }
+.star.two { top: 130px; right: 20px; }
+.star.three { bottom: 35px; left: 65px; }
+
+.decor {
+    width: 35px;
+    height: 85px;
+    background: #00e5e5;
+    border-radius: 50%;
+    box-shadow: 0 0 18px #00eeee;
+}
+
+.decor.left {
+    left: 30px;
+    transform: rotate(-35deg);
+}
+
+.decor.right {
+    right: 30px;
+    transform: rotate(35deg);
+}
+
+.energy-ring {
+    width: 265px;
+    height: 265px;
+    border: 3px dashed #00aaff;
+    border-radius: 50%;
+}
+
+/* DISFRAZ 1: ORIGINAL */
+
+.skin-thinking {
+    animation: thinking 3s ease-in-out infinite;
+}
+
+@keyframes thinking {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* DISFRAZ 2: CONFUSIÓN */
+
+.skin-confusion .eye:first-of-type {
+    height: 95px;
+    width: 55px;
+}
+
+.skin-confusion .eye:last-of-type {
+    height: 60px;
+    width: 75px;
+}
+
+.skin-confusion {
+    animation: confused 2.5s ease-in-out infinite;
+}
+
+@keyframes confused {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-4deg); }
+    75% { transform: rotate(4deg); }
+}
+
+/* DISFRAZ 3: ASTRONOMÍA */
+
+.skin-astronomy .hat {
+    display: block;
+    animation: floatingHat 2s ease-in-out infinite;
+}
+
+.skin-astronomy .star {
+    display: block;
+    animation: twinkle 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatingHat {
+    0%, 100% { margin-top: 0; }
+    50% { margin-top: -10px; }
+}
+
+@keyframes twinkle {
+    from { opacity: .25; transform: scale(.7); }
+    to { opacity: 1; transform: scale(1.3); }
+}
+
+/* DISFRAZ 4: ÉPICO */
+
+.skin-epic .decor {
+    display: block;
+    animation: epicDecor 1.8s ease-in-out infinite alternate;
+}
+
+.skin-epic {
+    animation: epicGlow 2s infinite alternate;
+}
+
+@keyframes epicDecor {
+    from { scale: .8; }
+    to { scale: 1.2; }
+}
+
+@keyframes epicGlow {
+    from { box-shadow: 0 0 20px #00caca; }
+    to { box-shadow: 0 0 65px #00ffff; }
+}
+
+/* DISFRAZ 5: ENERGÍA */
+
+.skin-energy {
+    animation: energyPulse 1.4s ease-in-out infinite;
+    border-color: #008cff;
+}
+
+.skin-energy .eye {
+    background: #008cff;
+    box-shadow: 0 0 30px #008cff;
+    animation: blink 4.5s infinite, eyePulse 1s infinite alternate;
+}
+
+.skin-energy .energy-ring {
+    display: block;
+    animation: rotateRing 5s linear infinite;
+}
+
+@keyframes energyPulse {
+    0%, 100% { box-shadow: 0 0 20px #008cff; }
+    50% { box-shadow: 0 0 65px #008cff; }
+}
+
+@keyframes eyePulse {
+    from { filter: brightness(.7); }
+    to { filter: brightness(1.8); }
+}
+
+@keyframes rotateRing {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* BOTONES */
+
+#message {
+    color: #aaa;
+    text-align: center;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 9px;
+    max-width: 520px;
+    padding: 10px;
+}
+
+button {
+    background: #071a20;
+    color: #00eeee;
+    border: 1px solid #00dada;
+    border-radius: 12px;
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #00caca;
+    color: black;
+    box-shadow: 0 0 15px #00eeee;
+}
+
+#nextButton {
+    width: 100%;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>EMMET 2.0</h1>
+
+<div id="name">Emmet original</div>
+
+<div id="robot" class="skin-thinking">
+
+    <div class="hat"></div>
+
+    <div class="star one">✦</div>
+    <div class="star two">✧</div>
+    <div class="star three">✦</div>
+
+    <div class="decor left"></div>
+    <div class="decor right"></div>
+
+    <div class="energy-ring"></div>
+
+    <div class="eye"></div>
+    <div class="eye"></div>
+
+</div>
+
+<div id="message">Sistema visual activado.</div>
+
+<div class="controls">
+
+    <button id="nextButton" onclick="nextSkin()">
+        ➡️ SIGUIENTE DISFRAZ
+    </button>
+
+    <button onclick="changeSkin(0)">1. Original</button>
+    <button onclick="changeSkin(1)">2. Confusión</button>
+    <button onclick="changeSkin(2)">3. Astronomía</button>
+    <button onclick="changeSkin(3)">4. Épico</button>
+    <button onclick="changeSkin(4)">5. Energía</button>
+
+</div>
+
+<script>
 const robot = document.getElementById("robot");
 const nameDisplay = document.getElementById("name");
 const message = document.getElementById("message");
 
-const skins = {
-    thinking: {
-        name: "Pensando",
-        message: "Emmet está pensando..."
+const skins = [
+    {
+        className: "skin-thinking",
+        name: "Emmet original",
+        message: "Sistema original activado."
     },
-    confusion: {
+    {
+        className: "skin-confusion",
         name: "Confusión",
         message: "Emmet está confundido..."
     },
-    astronomy: {
+    {
+        className: "skin-astronomy",
         name: "Astronomía",
         message: "¡Explorando el universo!"
     },
-    epic: {
+    {
+        className: "skin-epic",
         name: "Épico",
-        message: "¡Emmet está en modo épico!"
+        message: "¡Modo épico activado!"
     },
-    energy: {
+    {
+        className: "skin-energy",
         name: "Energía",
         message: "¡Energía al máximo!"
     }
-};
-
-const skinOrder = [
-    "thinking",
-    "confusion",
-    "astronomy",
-    "epic",
-    "energy"
 ];
 
 let currentSkin = 0;
 
-function changeSkin(skin) {
-    if (!skins[skin]) return;
+function changeSkin(number) {
+    if (number < 0 || number >= skins.length) return;
 
-    currentSkin = skinOrder.indexOf(skin);
+    currentSkin = number;
 
-    robot.className = "";
-    robot.classList.add("skin-" + skin);
+    robot.className = skins[number].className;
 
-    nameDisplay.textContent = skins[skin].name;
-    message.textContent = skins[skin].message;
+    nameDisplay.textContent = skins[number].name;
+    message.textContent = skins[number].message;
 }
 
 function nextSkin() {
-    currentSkin++;
-
-    if (currentSkin >= skinOrder.length) {
-        currentSkin = 0;
-    }
-
-    changeSkin(skinOrder[currentSkin]);
+    currentSkin = (currentSkin + 1) % skins.length;
+    changeSkin(currentSkin);
 }
+
+// Iniciar con el primer disfraz
+changeSkin(0);
+</script>
+
+</body>
+</html>
