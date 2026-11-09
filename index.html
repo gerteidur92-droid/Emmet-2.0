@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,286 +6,290 @@
 <title>Emmet 2.0</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     min-height: 100vh;
-    background: #05070b;
+    background: radial-gradient(circle at center, #10202d, #030609 75%);
     color: white;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 h1 {
-    color: #00eeee;
-    letter-spacing: 6px;
-    text-shadow: 0 0 18px #00eeee;
-}
-
-#name {
-    color: #00eeee;
-    font-size: 22px;
-    font-weight: bold;
+    letter-spacing: 7px;
+    color: #00eaff;
+    text-shadow: 0 0 18px #00eaff;
 }
 
 #robot {
-    width: 300px;
-    height: 300px;
+    position: relative;
+    width: 310px;
+    height: 310px;
     border-radius: 50%;
-    background: #000;
-    border: 3px solid #00dada;
-    box-shadow: 0 0 30px #00dada;
+    background: radial-gradient(circle, #172b3b, #050a10 75%);
+    border: 3px solid #00d9ff;
+    box-shadow: 0 0 30px #00d9ff, inset 0 0 35px #006b99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 3s ease-in-out infinite;
+}
+
+.face {
+    position: relative;
+    width: 230px;
+    height: 140px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
-    position: relative;
-    transition: box-shadow .4s, border-color .4s;
+    gap: 35px;
 }
 
 .eye {
-    width: 65px;
-    height: 78px;
     position: relative;
-    background: #00e5e5;
-    border-radius: 8px 8px 28px 28px;
-    box-shadow: 0 0 18px #00eeee;
-    transform-origin: center;
-    animation: blink 5s infinite;
+    width: 65px;
+    height: 48px;
+    border-radius: 8px 8px 30px 30px;
+    background: #00eaff;
+    box-shadow: 0 0 15px #00eaff, 0 0 35px #00bfff;
+    animation: blink 4s infinite;
 }
 
-.eye::after {
-    content: "";
+/* IMPORTANTE: no hay pupilas */
+
+.mouth {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 25px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 45px;
+    height: 7px;
+    border-radius: 20px;
+    background: #00eaff;
+    bottom: 5px;
+    box-shadow: 0 0 12px #00eaff;
+}
+
+/* TRAJE CONFUSIÓN */
+
+.skin-confusion {
+    border-color: #ffd43b !important;
+    box-shadow: 0 0 35px #ffd43b, inset 0 0 35px #665000 !important;
+    animation: confused 1.5s ease-in-out infinite;
+}
+
+.skin-confusion .eye {
+    background: #ffd43b;
+    box-shadow: 0 0 20px #ffd43b;
+}
+
+.skin-confusion .left-eye {
+    transform: rotate(-18deg);
+}
+
+.skin-confusion .right-eye {
+    transform: rotate(18deg);
+}
+
+.skin-confusion .mouth {
+    width: 22px;
+    height: 22px;
+    border: 5px solid #ffd43b;
+    background: transparent;
     border-radius: 50%;
-    background: white;
-    box-shadow: 0 0 15px white;
 }
 
-@keyframes blink {
-    0%, 44%, 48%, 100% { transform: scaleY(1); }
-    46% { transform: scaleY(.05); }
-}
+/* TRAJE ASTRONOMÍA: AGUJERO NEGRO */
 
-.hat, .star, .decor, .energy-ring {
-    display: none;
+.black-hole {
     position: absolute;
-}
-
-/* Sombrero de astronomía */
-
-.hat {
     width: 155px;
-    height: 45px;
-    top: -12px;
+    height: 155px;
     left: 50%;
-    transform: translateX(-50%);
-    background: #e5a52c;
-    border-bottom: 8px solid #a92727;
+    top: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
+    background: radial-gradient(circle, #000 30%, #080012 42%, transparent 70%);
+    box-shadow: 0 0 25px #9b42ff;
     z-index: 3;
 }
 
-.hat::before {
+.black-hole::before {
     content: "";
     position: absolute;
-    width: 65px;
+    width: 190px;
     height: 65px;
-    left: 45px;
-    top: -42px;
-    background: #b52c2c;
-    border: 4px solid #e5a52c;
-    border-radius: 50% 50% 10% 10%;
-}
-
-.star {
-    color: #00eaff;
-    font-size: 27px;
-    text-shadow: 0 0 15px #00eaff;
-}
-
-.star.one { top: 65px; left: 25px; }
-.star.two { top: 130px; right: 20px; }
-.star.three { bottom: 35px; left: 65px; }
-
-/* Adornos épicos */
-
-.decor {
-    width: 35px;
-    height: 85px;
-    background: #00e5e5;
+    left: -17px;
+    top: 45px;
+    border: 9px solid #ff8a24;
+    border-left-color: #ffe36e;
+    border-right-color: #8d36ff;
     border-radius: 50%;
-    box-shadow: 0 0 18px #00eeee;
+    transform: rotate(-25deg);
+    box-shadow: 0 0 15px #ff8a24, 0 0 30px #8d36ff;
+    animation: orbit 3s linear infinite;
 }
 
-.decor.left {
-    left: 30px;
-    transform: rotate(-35deg);
+.black-hole::after {
+    content: "";
+    position: absolute;
+    inset: 43px;
+    border-radius: 50%;
+    background: #000;
+    box-shadow: 0 0 20px #000;
 }
 
-.decor.right {
-    right: 30px;
-    transform: rotate(35deg);
+.skin-astronomy {
+    border-color: #a64dff !important;
+    box-shadow: 0 0 40px #8d36ff, inset 0 0 35px #300050 !important;
 }
 
-/* 1. ORIGINAL */
-
-.skin-thinking {
-    animation: thinking 3s ease-in-out infinite;
+.skin-astronomy .eye,
+.skin-astronomy .mouth {
+    opacity: 0;
 }
 
-@keyframes thinking {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-}
-
-/* 2. CONFUSIÓN */
-
-.skin-confusion .eye:first-of-type {
-    height: 95px;
-    width: 55px;
-}
-
-.skin-confusion .eye:last-of-type {
-    height: 60px;
-    width: 75px;
-}
-
-.skin-confusion {
-    animation: confused 2.5s ease-in-out infinite;
-}
-
-@keyframes confused {
-    0%, 100% { transform: rotate(0); }
-    25% { transform: rotate(-4deg); }
-    75% { transform: rotate(4deg); }
-}
-
-/* 3. ASTRONOMÍA */
-
-.skin-astronomy .hat {
+.skin-astronomy .black-hole {
     display: block;
-    animation: floatingHat 2s ease-in-out infinite;
 }
 
-.skin-astronomy .star {
-    display: block;
-    animation: twinkle 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes floatingHat {
-    0%, 100% { margin-top: 0; }
-    50% { margin-top: -10px; }
-}
-
-@keyframes twinkle {
-    from { opacity: .25; transform: scale(.7); }
-    to { opacity: 1; transform: scale(1.3); }
-}
-
-/* 4. ÉPICO */
-
-.skin-epic .decor {
-    display: block;
-    animation: epicDecor 1.8s ease-in-out infinite alternate;
-}
+/* TRAJE ÉPICO: RAYOS DESDE LOS OJOS */
 
 .skin-epic {
-    animation: epicGlow 2s infinite alternate;
+    border-color: #00fff0 !important;
+    box-shadow: 0 0 45px #00fff0, inset 0 0 35px #005e65 !important;
 }
 
-@keyframes epicDecor {
-    from { scale: .8; }
-    to { scale: 1.2; }
+.skin-epic .eye {
+    background: #fff;
+    box-shadow: 0 0 20px #fff, 0 0 45px #00eaff;
+    animation: epicEyes 0.7s infinite alternate;
 }
 
-@keyframes epicGlow {
-    from { box-shadow: 0 0 20px #00caca; }
-    to { box-shadow: 0 0 65px #00ffff; }
+.skin-epic .eye::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 35px;
+    width: 12px;
+    height: 95px;
+    background: linear-gradient(#fff, #00eaff, transparent);
+    transform: translateX(-50%);
+    filter: drop-shadow(0 0 10px #00eaff);
+    clip-path: polygon(35% 0, 100% 25%, 55% 45%, 90% 70%, 0 100%, 30% 55%, 0 35%);
+    animation: lightning 0.25s infinite alternate;
 }
 
-/* 5. ENERGÍA */
+.skin-epic .mouth {
+    background: #00fff0;
+    box-shadow: 0 0 20px #00fff0;
+}
+
+/* QUINTO TRAJE: ENERGÍA */
 
 .skin-energy {
-    animation: energyPulse 1.4s ease-in-out infinite;
-    border-color: #008cff;
+    border-color: #438aff !important;
+    box-shadow: 0 0 40px #438aff, inset 0 0 35px #102c88 !important;
 }
 
 .skin-energy .eye {
-    background: #008cff;
-    box-shadow: 0 0 30px #008cff;
-    animation: blink 5s infinite, eyePulse 1s infinite alternate;
+    background: #8bdcff;
+    box-shadow: 0 0 20px #8bdcff, 0 0 40px #246cff;
+    animation: energyPulse 1.2s infinite alternate;
 }
 
-.skin-energy .energy-ring {
-    display: block;
-    animation: rotateRing 5s linear infinite;
+.skin-energy .mouth {
+    background: #438aff;
+    box-shadow: 0 0 20px #438aff;
+}
+
+.energy-ring {
+    position: absolute;
+    width: 275px;
+    height: 275px;
+    left: 50%;
+    top: 50%;
+    margin: 0;
+    border: 2px dashed #438aff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: energyOrbit 8s linear infinite;
+    pointer-events: none;
+}
+
+/* ANIMACIONES */
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes blink {
+    0%, 45%, 50%, 100% { transform: scaleY(1); }
+    47%, 49% { transform: scaleY(0.08); }
+}
+
+@keyframes confused {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+@keyframes orbit {
+    to { transform: rotate(335deg); }
+}
+
+@keyframes epicEyes {
+    from { box-shadow: 0 0 15px #fff, 0 0 30px #00eaff; }
+    to { box-shadow: 0 0 35px #fff, 0 0 65px #00eaff; }
+}
+
+@keyframes lightning {
+    from { opacity: 0.65; }
+    to { opacity: 1; }
 }
 
 @keyframes energyPulse {
-    0%, 100% { box-shadow: 0 0 20px #008cff; }
-    50% { box-shadow: 0 0 65px #008cff; }
-}
-
-@keyframes eyePulse {
-    from { filter: brightness(.7); }
+    from { filter: brightness(0.8); }
     to { filter: brightness(1.8); }
 }
 
-@keyframes rotateRing {
-    from { transform: rotate(0); }
-    to { transform: rotate(360deg); }
+@keyframes energyOrbit {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* BOTONES */
-
-#message {
-    color: #aaa;
+#costumeName {
+    margin-top: 25px;
+    color: #00eaff;
+    font-size: 20px;
+    letter-spacing: 3px;
     text-align: center;
-    padding: 0 15px;
-}
-
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 9px;
-    max-width: 520px;
-    padding: 10px;
 }
 
 button {
-    background: #071a20;
-    color: #00eeee;
-    border: 1px solid #00dada;
-    border-radius: 12px;
-    padding: 12px 15px;
+    margin-top: 25px;
+    padding: 13px 28px;
+    background: #071923;
+    color: #00eaff;
+    border: 2px solid #00eaff;
+    border-radius: 30px;
+    font-size: 16px;
     cursor: pointer;
-    font-size: 14px;
+    box-shadow: 0 0 15px #00eaff;
 }
 
 button:hover {
-    background: #00caca;
-    color: black;
-    box-shadow: 0 0 15px #00eeee;
+    background: #00eaff;
+    color: #001018;
 }
 
-#nextButton {
-    width: 100%;
-    font-size: 17px;
-    font-weight: bold;
-    padding: 15px;
+#counter {
+    margin-top: 12px;
+    color: #91aab8;
 }
 </style>
 </head>
@@ -295,90 +298,57 @@ button:hover {
 
 <h1>EMMET 2.0</h1>
 
-<div id="name">Emmet original</div>
+<div id="robot">
+    <div class="energy-ring" id="energyRing" hidden></div>
+    <div class="black-hole" id="blackHole" hidden></div>
 
-<div id="robot" class="skin-thinking">
-    <div class="hat"></div>
-    <div class="star one">✦</div>
-    <div class="star two">✧</div>
-    <div class="star three">✦</div>
-    <div class="decor left"></div>
-    <div class="decor right"></div>
-    <div class="energy-ring"></div>
-    <div class="eye"></div>
-    <div class="eye"></div>
+    <div class="face">
+        <div class="eye left-eye"></div>
+        <div class="eye right-eye"></div>
+        <div class="mouth"></div>
+    </div>
 </div>
 
-<div id="message">Sistema visual activado.</div>
+<div id="costumeName">ORIGINAL</div>
 
-<div class="controls">
-    <button id="nextButton" onclick="nextSkin()">
-        ➡️ SIGUIENTE DISFRAZ
-    </button>
-    <button onclick="changeSkin(0)">1. Original</button>
-    <button onclick="changeSkin(1)">2. Confusión</button>
-    <button onclick="changeSkin(2)">3. Astronomía</button>
-    <button onclick="changeSkin(3)">4. Épico</button>
-    <button onclick="changeSkin(4)">5. Energía</button>
-</div>
+<button id="nextCostume">SIGUIENTE DISFRAZ</button>
+<div id="counter">1 / 5</div>
 
 <script>
-"use strict";
-
 const robot = document.getElementById("robot");
-const nameDisplay = document.getElementById("name");
-const message = document.getElementById("message");
+const costumeName = document.getElementById("costumeName");
+const counter = document.getElementById("counter");
+const blackHole = document.getElementById("blackHole");
+const energyRing = document.getElementById("energyRing");
+const nextButton = document.getElementById("nextCostume");
 
-const skins = [
-    {
-        className: "skin-thinking",
-        name: "Emmet original",
-        message: "Sistema original activado."
-    },
-    {
-        className: "skin-confusion",
-        name: "Confusión",
-        message: "Emmet está confundido..."
-    },
-    {
-        className: "skin-astronomy",
-        name: "Astronomía",
-        message: "¡Explorando el universo!"
-    },
-    {
-        className: "skin-epic",
-        name: "Épico",
-        message: "¡Modo épico activado!"
-    },
-    {
-        className: "skin-energy",
-        name: "Energía",
-        message: "¡Energía al máximo!"
-    }
+const costumes = [
+    { name: "ORIGINAL", className: "" },
+    { name: "CONFUSIÓN", className: "skin-confusion" },
+    { name: "ASTRONOMÍA", className: "skin-astronomy" },
+    { name: "ÉPICO", className: "skin-epic" },
+    { name: "ENERGÍA", className: "skin-energy" }
 ];
 
-let currentSkin = 0;
+let currentCostume = 0;
 
-function changeSkin(number) {
-    if (!Number.isInteger(number) ||
-        number < 0 ||
-        number >= skins.length) {
-        return;
+function changeCostume() {
+    currentCostume = (currentCostume + 1) % costumes.length;
+    const costume = costumes[currentCostume];
+
+    robot.className = "";
+    if (costume.className) {
+        robot.classList.add(costume.className);
     }
 
-    currentSkin = number;
+    blackHole.hidden = currentCostume !== 2;
+    energyRing.hidden = currentCostume !== 4;
 
-    robot.className = skins[number].className;
-    nameDisplay.textContent = skins[number].name;
-    message.textContent = skins[number].message;
+    costumeName.textContent = costume.name;
+    counter.textContent = (currentCostume + 1) + " / 5";
 }
 
-function nextSkin() {
-    currentSkin = (currentSkin + 1) % skins.length;
-    changeSkin(currentSkin);
-}
-
-changeSkin(0);
+nextButton.addEventListener("click", changeCostume);
 </script>
 
 </body>
