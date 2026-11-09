@@ -7,9 +7,7 @@
 <title>Emmet 2.0</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -22,7 +20,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 20px;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -33,26 +31,24 @@ h1 {
 
 #name {
     color: #00eeee;
-    font-size: 21px;
+    font-size: 22px;
     font-weight: bold;
 }
 
 #robot {
     width: 300px;
     height: 300px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
     border-radius: 50%;
     background: #000;
     border: 3px solid #00dada;
     box-shadow: 0 0 30px #00dada;
-    transition: border-color .4s, box-shadow .4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    transition: box-shadow .4s, border-color .4s;
 }
-
-/* OJOS */
 
 .eye {
     width: 65px;
@@ -61,8 +57,8 @@ h1 {
     background: #00e5e5;
     border-radius: 8px 8px 28px 28px;
     box-shadow: 0 0 18px #00eeee;
-    animation: blink 4.5s infinite;
     transform-origin: center;
+    animation: blink 5s infinite;
 }
 
 .eye::after {
@@ -78,25 +74,17 @@ h1 {
     box-shadow: 0 0 15px white;
 }
 
-.eye:nth-of-type(2) {
-    animation-delay: .15s;
-}
-
 @keyframes blink {
-    0%, 44%, 48%, 100% {
-        transform: scaleY(1);
-    }
-    46% {
-        transform: scaleY(.06);
-    }
+    0%, 44%, 48%, 100% { transform: scaleY(1); }
+    46% { transform: scaleY(.05); }
 }
-
-/* ELEMENTOS DECORATIVOS */
 
 .hat, .star, .decor, .energy-ring {
     display: none;
     position: absolute;
 }
+
+/* Sombrero de astronomía */
 
 .hat {
     width: 155px;
@@ -132,6 +120,8 @@ h1 {
 .star.two { top: 130px; right: 20px; }
 .star.three { bottom: 35px; left: 65px; }
 
+/* Adornos épicos */
+
 .decor {
     width: 35px;
     height: 85px;
@@ -150,14 +140,7 @@ h1 {
     transform: rotate(35deg);
 }
 
-.energy-ring {
-    width: 265px;
-    height: 265px;
-    border: 3px dashed #00aaff;
-    border-radius: 50%;
-}
-
-/* DISFRAZ 1: ORIGINAL */
+/* 1. ORIGINAL */
 
 .skin-thinking {
     animation: thinking 3s ease-in-out infinite;
@@ -168,7 +151,7 @@ h1 {
     50% { transform: translateY(-8px); }
 }
 
-/* DISFRAZ 2: CONFUSIÓN */
+/* 2. CONFUSIÓN */
 
 .skin-confusion .eye:first-of-type {
     height: 95px;
@@ -185,12 +168,12 @@ h1 {
 }
 
 @keyframes confused {
-    0%, 100% { transform: rotate(0deg); }
+    0%, 100% { transform: rotate(0); }
     25% { transform: rotate(-4deg); }
     75% { transform: rotate(4deg); }
 }
 
-/* DISFRAZ 3: ASTRONOMÍA */
+/* 3. ASTRONOMÍA */
 
 .skin-astronomy .hat {
     display: block;
@@ -212,7 +195,7 @@ h1 {
     to { opacity: 1; transform: scale(1.3); }
 }
 
-/* DISFRAZ 4: ÉPICO */
+/* 4. ÉPICO */
 
 .skin-epic .decor {
     display: block;
@@ -233,7 +216,7 @@ h1 {
     to { box-shadow: 0 0 65px #00ffff; }
 }
 
-/* DISFRAZ 5: ENERGÍA */
+/* 5. ENERGÍA */
 
 .skin-energy {
     animation: energyPulse 1.4s ease-in-out infinite;
@@ -243,7 +226,7 @@ h1 {
 .skin-energy .eye {
     background: #008cff;
     box-shadow: 0 0 30px #008cff;
-    animation: blink 4.5s infinite, eyePulse 1s infinite alternate;
+    animation: blink 5s infinite, eyePulse 1s infinite alternate;
 }
 
 .skin-energy .energy-ring {
@@ -262,7 +245,7 @@ h1 {
 }
 
 @keyframes rotateRing {
-    from { transform: rotate(0deg); }
+    from { transform: rotate(0); }
     to { transform: rotate(360deg); }
 }
 
@@ -271,6 +254,7 @@ h1 {
 #message {
     color: #aaa;
     text-align: center;
+    padding: 0 15px;
 }
 
 .controls {
@@ -314,40 +298,33 @@ button:hover {
 <div id="name">Emmet original</div>
 
 <div id="robot" class="skin-thinking">
-
     <div class="hat"></div>
-
     <div class="star one">✦</div>
     <div class="star two">✧</div>
     <div class="star three">✦</div>
-
     <div class="decor left"></div>
     <div class="decor right"></div>
-
     <div class="energy-ring"></div>
-
     <div class="eye"></div>
     <div class="eye"></div>
-
 </div>
 
 <div id="message">Sistema visual activado.</div>
 
 <div class="controls">
-
     <button id="nextButton" onclick="nextSkin()">
         ➡️ SIGUIENTE DISFRAZ
     </button>
-
     <button onclick="changeSkin(0)">1. Original</button>
     <button onclick="changeSkin(1)">2. Confusión</button>
     <button onclick="changeSkin(2)">3. Astronomía</button>
     <button onclick="changeSkin(3)">4. Épico</button>
     <button onclick="changeSkin(4)">5. Energía</button>
-
 </div>
 
 <script>
+"use strict";
+
 const robot = document.getElementById("robot");
 const nameDisplay = document.getElementById("name");
 const message = document.getElementById("message");
@@ -383,12 +360,15 @@ const skins = [
 let currentSkin = 0;
 
 function changeSkin(number) {
-    if (number < 0 || number >= skins.length) return;
+    if (!Number.isInteger(number) ||
+        number < 0 ||
+        number >= skins.length) {
+        return;
+    }
 
     currentSkin = number;
 
     robot.className = skins[number].className;
-
     nameDisplay.textContent = skins[number].name;
     message.textContent = skins[number].message;
 }
@@ -398,7 +378,6 @@ function nextSkin() {
     changeSkin(currentSkin);
 }
 
-// Iniciar con el primer disfraz
 changeSkin(0);
 </script>
 
