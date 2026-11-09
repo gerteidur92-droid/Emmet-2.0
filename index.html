@@ -1,316 +1,326 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Emmet 2.0</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
-    margin: 0;
-    min-height: 100vh;
-    background: radial-gradient(circle at center, #10202d, #030609 75%);
-    color: white;
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #102333, #020509 75%);
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
 h1 {
-    letter-spacing: 7px;
-    color: #00eaff;
-    text-shadow: 0 0 18px #00eaff;
+  color: #00eaff;
+  letter-spacing: 7px;
+  text-shadow: 0 0 18px #00eaff;
 }
 
 #robot {
-    position: relative;
-    width: 310px;
-    height: 310px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #172b3b, #050a10 75%);
-    border: 3px solid #00d9ff;
-    box-shadow: 0 0 30px #00d9ff, inset 0 0 35px #006b99;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: float 3s ease-in-out infinite;
+  width: 310px;
+  height: 310px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #00eaff;
+  border-radius: 50%;
+  background: radial-gradient(circle, #172d40, #03070c 75%);
+  box-shadow: 0 0 30px #00eaff, inset 0 0 35px #006b99;
+  animation: float 3s ease-in-out infinite;
 }
 
 .face {
-    position: relative;
-    width: 230px;
-    height: 140px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 35px;
+  width: 220px;
+  height: 130px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  z-index: 4;
 }
 
 .eye {
-    position: relative;
-    width: 65px;
-    height: 48px;
-    border-radius: 8px 8px 30px 30px;
-    background: #00eaff;
-    box-shadow: 0 0 15px #00eaff, 0 0 35px #00bfff;
-    animation: blink 4s infinite;
+  width: 65px;
+  height: 45px;
+  position: relative;
+  flex: 0 0 65px;
+  border-radius: 8px 8px 30px 30px;
+  background: #00eaff;
+  box-shadow: 0 0 18px #00eaff, 0 0 35px #00aaff;
+  animation: blink 5s infinite;
 }
 
-/* IMPORTANTE: no hay pupilas */
+/* OJOS SIN PUPILAS: ningún elemento interior */
+
+.eye::before,
+.eye::after {
+  content: none !important;
+  display: none !important;
+}
 
 .mouth {
-    position: absolute;
-    width: 45px;
-    height: 7px;
-    border-radius: 20px;
-    background: #00eaff;
-    bottom: 5px;
-    box-shadow: 0 0 12px #00eaff;
+  position: absolute;
+  bottom: 0;
+  width: 45px;
+  height: 6px;
+  border-radius: 20px;
+  background: #00eaff;
+  box-shadow: 0 0 12px #00eaff;
 }
 
-/* TRAJE CONFUSIÓN */
+/* CONFUSIÓN */
 
 .skin-confusion {
-    border-color: #ffd43b !important;
-    box-shadow: 0 0 35px #ffd43b, inset 0 0 35px #665000 !important;
-    animation: confused 1.5s ease-in-out infinite;
+  border-color: #ffd43b !important;
+  box-shadow: 0 0 35px #ffd43b, inset 0 0 35px #665000 !important;
 }
 
 .skin-confusion .eye {
-    background: #ffd43b;
-    box-shadow: 0 0 20px #ffd43b;
+  background: #ffd43b;
+  box-shadow: 0 0 20px #ffd43b;
 }
 
-.skin-confusion .left-eye {
-    transform: rotate(-18deg);
-}
-
-.skin-confusion .right-eye {
-    transform: rotate(18deg);
-}
+.skin-confusion .left-eye { transform: rotate(-17deg); }
+.skin-confusion .right-eye { transform: rotate(17deg); }
 
 .skin-confusion .mouth {
-    width: 22px;
-    height: 22px;
-    border: 5px solid #ffd43b;
-    background: transparent;
-    border-radius: 50%;
+  width: 23px;
+  height: 23px;
+  border: 5px solid #ffd43b;
+  background: transparent;
+  border-radius: 50%;
 }
 
-/* TRAJE ASTRONOMÍA: AGUJERO NEGRO */
+/* ASTRONOMÍA: AGUJERO NEGRO Y DISCO DE ACRECIÓN */
 
 .black-hole {
-    position: absolute;
-    width: 155px;
-    height: 155px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: radial-gradient(circle, #000 30%, #080012 42%, transparent 70%);
-    box-shadow: 0 0 25px #9b42ff;
-    z-index: 3;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #000;
+  z-index: 6;
+  box-shadow: 0 0 15px #000, 0 0 35px #a64dff;
 }
 
-.black-hole::before {
-    content: "";
-    position: absolute;
-    width: 190px;
-    height: 65px;
-    left: -17px;
-    top: 45px;
-    border: 9px solid #ff8a24;
-    border-left-color: #ffe36e;
-    border-right-color: #8d36ff;
-    border-radius: 50%;
-    transform: rotate(-25deg);
-    box-shadow: 0 0 15px #ff8a24, 0 0 30px #8d36ff;
-    animation: orbit 3s linear infinite;
+.accretion {
+  position: absolute;
+  width: 245px;
+  height: 90px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  border-radius: 50%;
+  border: 9px solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(90deg, #ff3d00, #ffdc62, #fff, #a64dff, #ff3d00) border-box;
+  box-shadow:
+    0 0 12px #ff9d36,
+    0 0 25px #a64dff,
+    0 0 40px #6120ff;
+  z-index: 5;
+  animation: diskGlow 2s ease-in-out infinite alternate;
 }
 
-.black-hole::after {
-    content: "";
-    position: absolute;
-    inset: 43px;
-    border-radius: 50%;
-    background: #000;
-    box-shadow: 0 0 20px #000;
+.accretion::before {
+  content: "";
+  position: absolute;
+  inset: 8px -10px;
+  border: 3px solid #ffb13b;
+  border-radius: 50%;
+  filter: blur(4px);
+}
+
+.accretion::after {
+  content: "";
+  position: absolute;
+  inset: -18px -28px;
+  border: 2px solid #8d36ff;
+  border-radius: 50%;
+  opacity: .8;
 }
 
 .skin-astronomy {
-    border-color: #a64dff !important;
-    box-shadow: 0 0 40px #8d36ff, inset 0 0 35px #300050 !important;
+  border-color: #a64dff !important;
+  box-shadow: 0 0 40px #8d36ff, inset 0 0 35px #300050 !important;
 }
 
 .skin-astronomy .eye,
 .skin-astronomy .mouth {
-    opacity: 0;
+  display: none;
 }
 
-.skin-astronomy .black-hole {
-    display: block;
-}
-
-/* TRAJE ÉPICO: RAYOS DESDE LOS OJOS */
+/* ÉPICO: RAYOS QUE NACEN DE LOS OJOS */
 
 .skin-epic {
-    border-color: #00fff0 !important;
-    box-shadow: 0 0 45px #00fff0, inset 0 0 35px #005e65 !important;
+  border-color: #00fff0 !important;
+  box-shadow: 0 0 45px #00fff0, inset 0 0 35px #005e65 !important;
 }
 
 .skin-epic .eye {
-    background: #fff;
-    box-shadow: 0 0 20px #fff, 0 0 45px #00eaff;
-    animation: epicEyes 0.7s infinite alternate;
+  background: #fff;
+  box-shadow: 0 0 20px #fff, 0 0 45px #00eaff;
+  animation: epicGlow .6s infinite alternate;
+  overflow: visible;
 }
 
+/* Cada rayo sale desde el borde inferior del ojo */
 .skin-epic .eye::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 35px;
-    width: 12px;
-    height: 95px;
-    background: linear-gradient(#fff, #00eaff, transparent);
-    transform: translateX(-50%);
-    filter: drop-shadow(0 0 10px #00eaff);
-    clip-path: polygon(35% 0, 100% 25%, 55% 45%, 90% 70%, 0 100%, 30% 55%, 0 35%);
-    animation: lightning 0.25s infinite alternate;
+  content: "";
+  display: block !important;
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  width: 24px;
+  height: 115px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    #00ffff 35%,
+    #008cff 70%,
+    transparent 100%
+  );
+  clip-path: polygon(
+    40% 0, 100% 20%, 58% 35%,
+    90% 52%, 35% 65%, 65% 82%,
+    0 100%, 28% 58%, 5% 35%
+  );
+  filter: drop-shadow(0 0 8px #00ffff);
+  animation: lightningFlash .18s infinite alternate;
 }
 
 .skin-epic .mouth {
-    background: #00fff0;
-    box-shadow: 0 0 20px #00fff0;
+  background: #00fff0;
+  box-shadow: 0 0 20px #00fff0;
 }
 
-/* QUINTO TRAJE: ENERGÍA */
+/* QUINTO TRAJE */
 
 .skin-energy {
-    border-color: #438aff !important;
-    box-shadow: 0 0 40px #438aff, inset 0 0 35px #102c88 !important;
+  border-color: #438aff !important;
+  box-shadow: 0 0 40px #438aff, inset 0 0 35px #102c88 !important;
 }
 
 .skin-energy .eye {
-    background: #8bdcff;
-    box-shadow: 0 0 20px #8bdcff, 0 0 40px #246cff;
-    animation: energyPulse 1.2s infinite alternate;
+  background: #8bdcff;
+  box-shadow: 0 0 20px #8bdcff, 0 0 40px #246cff;
+  animation: energyPulse 1.2s infinite alternate;
 }
 
 .skin-energy .mouth {
-    background: #438aff;
-    box-shadow: 0 0 20px #438aff;
+  background: #438aff;
+  box-shadow: 0 0 20px #438aff;
 }
 
 .energy-ring {
-    position: absolute;
-    width: 275px;
-    height: 275px;
-    left: 50%;
-    top: 50%;
-    margin: 0;
-    border: 2px dashed #438aff;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: energyOrbit 8s linear infinite;
-    pointer-events: none;
+  position: absolute;
+  width: 275px;
+  height: 275px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px dashed #438aff;
+  border-radius: 50%;
+  animation: ringSpin 8s linear infinite;
 }
 
 /* ANIMACIONES */
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
 }
 
 @keyframes blink {
-    0%, 45%, 50%, 100% { transform: scaleY(1); }
-    47%, 49% { transform: scaleY(0.08); }
+  0%, 45%, 50%, 100% { scale: 1 1; }
+  47%, 49% { scale: 1 .08; }
 }
 
-@keyframes confused {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
+@keyframes diskGlow {
+  from { filter: brightness(.8); }
+  to { filter: brightness(1.5); }
 }
 
-@keyframes orbit {
-    to { transform: rotate(335deg); }
+@keyframes epicGlow {
+  from { box-shadow: 0 0 15px #fff, 0 0 30px #00eaff; }
+  to { box-shadow: 0 0 35px #fff, 0 0 65px #00eaff; }
 }
 
-@keyframes epicEyes {
-    from { box-shadow: 0 0 15px #fff, 0 0 30px #00eaff; }
-    to { box-shadow: 0 0 35px #fff, 0 0 65px #00eaff; }
-}
-
-@keyframes lightning {
-    from { opacity: 0.65; }
-    to { opacity: 1; }
+@keyframes lightningFlash {
+  from { opacity: .55; }
+  to { opacity: 1; }
 }
 
 @keyframes energyPulse {
-    from { filter: brightness(0.8); }
-    to { filter: brightness(1.8); }
+  from { filter: brightness(.8); }
+  to { filter: brightness(1.8); }
 }
 
-@keyframes energyOrbit {
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-#costumeName {
-    margin-top: 25px;
-    color: #00eaff;
-    font-size: 20px;
-    letter-spacing: 3px;
-    text-align: center;
+@keyframes ringSpin {
+  to { rotate: 360deg; }
 }
 
 button {
-    margin-top: 25px;
-    padding: 13px 28px;
-    background: #071923;
-    color: #00eaff;
-    border: 2px solid #00eaff;
-    border-radius: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 0 15px #00eaff;
+  margin-top: 25px;
+  padding: 13px 28px;
+  border: 2px solid #00eaff;
+  border-radius: 30px;
+  background: #071923;
+  color: #00eaff;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00eaff;
 }
 
-button:hover {
-    background: #00eaff;
-    color: #001018;
+#costumeName {
+  margin-top: 24px;
+  color: #00eaff;
+  letter-spacing: 3px;
+  font-size: 20px;
 }
 
 #counter {
-    margin-top: 12px;
-    color: #91aab8;
+  margin-top: 12px;
+  color: #91aab8;
 }
 </style>
 </head>
 
 <body>
-
 <h1>EMMET 2.0</h1>
 
 <div id="robot">
-    <div class="energy-ring" id="energyRing" hidden></div>
-    <div class="black-hole" id="blackHole" hidden></div>
+  <div class="energy-ring" id="energyRing" hidden></div>
+  <div class="accretion" id="accretion" hidden></div>
+  <div class="black-hole" id="blackHole" hidden></div>
 
-    <div class="face">
-        <div class="eye left-eye"></div>
-        <div class="eye right-eye"></div>
-        <div class="mouth"></div>
-    </div>
+  <div class="face">
+    <div class="eye left-eye"></div>
+    <div class="eye right-eye"></div>
+    <div class="mouth"></div>
+  </div>
 </div>
 
 <div id="costumeName">ORIGINAL</div>
-
 <button id="nextCostume">SIGUIENTE DISFRAZ</button>
 <div id="counter">1 / 5</div>
 
@@ -319,37 +329,38 @@ const robot = document.getElementById("robot");
 const costumeName = document.getElementById("costumeName");
 const counter = document.getElementById("counter");
 const blackHole = document.getElementById("blackHole");
+const accretion = document.getElementById("accretion");
 const energyRing = document.getElementById("energyRing");
-const nextButton = document.getElementById("nextCostume");
 
 const costumes = [
-    { name: "ORIGINAL", className: "" },
-    { name: "CONFUSIÓN", className: "skin-confusion" },
-    { name: "ASTRONOMÍA", className: "skin-astronomy" },
-    { name: "ÉPICO", className: "skin-epic" },
-    { name: "ENERGÍA", className: "skin-energy" }
+  { name: "ORIGINAL", className: "" },
+  { name: "CONFUSIÓN", className: "skin-confusion" },
+  { name: "ASTRONOMÍA", className: "skin-astronomy" },
+  { name: "ÉPICO", className: "skin-epic" },
+  { name: "ENERGÍA", className: "skin-energy" }
 ];
 
 let currentCostume = 0;
 
 function changeCostume() {
-    currentCostume = (currentCostume + 1) % costumes.length;
-    const costume = costumes[currentCostume];
+  currentCostume = (currentCostume + 1) % costumes.length;
+  const costume = costumes[currentCostume];
 
-    robot.className = "";
-    if (costume.className) {
-        robot.classList.add(costume.className);
-    }
+  robot.className = "";
+  if (costume.className) {
+    robot.classList.add(costume.className);
+  }
 
-    blackHole.hidden = currentCostume !== 2;
-    energyRing.hidden = currentCostume !== 4;
+  blackHole.hidden = currentCostume !== 2;
+  accretion.hidden = currentCostume !== 2;
+  energyRing.hidden = currentCostume !== 4;
 
-    costumeName.textContent = costume.name;
-    counter.textContent = (currentCostume + 1) + " / 5";
+  costumeName.textContent = costume.name;
+  counter.textContent = `${currentCostume + 1} / 5`;
 }
 
-nextButton.addEventListener("click", changeCostume);
+document.getElementById("nextCostume")
+  .addEventListener("click", changeCostume);
 </script>
-
 </body>
 </html>
