@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emmet 2.0</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #05080f;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+    }
+
+    h1 {
+      color: #42dfff;
+      letter-spacing: 5px;
+      text-shadow: 0 0 15px #00bfff;
+    }
+
+    .face {
+      width: 260px;
+      height: 260px;
+      border: 3px solid #00cfff;
+      border-radius: 50%;
+      box-shadow: 0 0 30px #00aaff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 35px;
+      margin: 25px;
+      background: #080d18;
+    }
+
+    .eye {
+      width: 55px;
+      height: 25px;
+      background: #4deaff;
+      border-radius: 4px 4px 25px 25px;
+      box-shadow: 0 0 20px #00cfff;
+    }
+
+    #status {
+      color: #70dfff;
+      margin: 10px;
+    }
+
+    #messages {
+      width: min(100%, 500px);
+      min-height: 180px;
+      max-height: 300px;
+      overflow-y: auto;
+      background: #101725;
+      border: 1px solid #164b65;
+      border-radius: 15px;
+      padding: 15px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      width: min(100%, 500px);
+      margin-top: 15px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 13px;
+      border-radius: 10px;
+      border: 1px solid #168bb0;
+      background: #101725;
+      color: white;
+    }
+
+    button {
+      background: #00bfe8;
+      color: #001018;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>EMMET 2.0</h1>
+
+  <div class="face">
+    <div class="eye"></div>
+    <div class="eye"></div>
+  </div>
+
+  <div id="status">Sistema iniciado</div>
+
+  <div id="messages">
+    <p><b>Emmet:</b> Hola, soy Emmet 2.0.</p>
+  </div>
+
+  <div class="controls">
+    <input id="message" placeholder="Habla con Emmet...">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("message");
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      const messages = document.getElementById("messages");
+      messages.innerHTML += `<p><b>Tú:</b> ${escapeHTML(text)}</p>`;
+
+      input.value = "";
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function escapeHTML(text) {
+      return text.replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+  </script>
+</body>
+</html>
